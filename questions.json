@@ -1,0 +1,52 @@
+questions = [
+    {
+        "question": "1. Which of the following is NOT a primary color?",
+        "options": ["A) Red", "B) Blue", "C) Green", "D) Yellow"],
+        "answer": "C"
+    },
+    {
+        "question": "2. What is the chemical symbol for Sodium?",
+        "options": ["A) Na", "B) S", "C) So", "D) N"],
+        "answer": "A"
+    },
+    {
+        "question": "3. Who wrote 'Things Fall Apart'?",
+        "options": ["A) Chinua Achebe", "B) Wole Soyinka", "C) Ngugi wa Thiong'o", "D) Chimamanda Adichie"],
+        "answer": "A"
+    },
+    {
+        "question": "4. What is the value of π (Pi) approximately?",
+        "options": ["A) 2.14", "B) 3.14", "C) 3.41", "D) 2.41"],
+        "answer": "B"
+    },
+    {
+        "question": "5. Which gas do humans inhale for respiration?",
+        "options": ["A) Carbon dioxide", "B) Oxygen", "C) Nitrogen", "D) Hydrogen"],
+        "answer": "B"
+    },
+    {
+        "question": "6. Who discovered penicillin?",
+        "options": ["A) Louis Pasteur", "B) Alexander Fleming", "C) Marie Curie", "D) Gregor Mendel"],
+        "answer": "B"
+    },
+    {
+        "question": "7. What is the largest planet in our solar system?",
+        "options": ["A) Earth", "B) Saturn", "C) Jupiter", "D) Mars"],
+        "answer": "C"
+    },
+    {
+        "question": "8. Which process converts glucose into energy in cells?",
+        "options": ["A) Photosynthesis", "B) Respiration", "C) Fermentation", "D) Digestion"],
+        "answer": "B"
+    },
+    {
+        "question": "9. Which organ in the human body produces insulin?",
+        "options": ["A) Liver", "B) Pancreas", "C) Kidney", "D) Heart"],
+        "answer": "B"
+    },
+    {
+        "question": "10. What is the boiling point of water at sea level?",
+        "options": ["A) 90°C", "B) 95°C", "C) 100°C", "D) 105°C"],
+        "answer": "C"
+    }
+]
