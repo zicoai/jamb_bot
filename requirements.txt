@@ -1,5 +1,1 @@
 python-telegram-bot[webhooks]==20.5
-Pillow
-pytesseract
-pdf2image
-PyPDF2
