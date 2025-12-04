@@ -1,67 +1,68 @@
+import os
+import random
 import json
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
-# Load questions from JSON
-with open("questions.json", "r") as f:
-    question_bank = json.load(f)
+# ----------------------------
+# BOT TOKEN (from environment variable)
+# ----------------------------
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+if not TOKEN:
+    raise ValueError("No TELEGRAM_BOT_TOKEN found in environment variables")
 
-# Track user progress
-user_state = {}  # user_id: current_question_index
+# ----------------------------
+# LOAD QUESTIONS
+# ----------------------------
+with open("questions.json", "r", encoding="utf-8") as f:
+    questions = json.load(f)
 
-# Start command
+# ----------------------------
+# TRACK LAST QUESTION FOR EACH USER
+# ----------------------------
+user_last_question = {}
+
+# ----------------------------
+# COMMAND HANDLERS
+# ----------------------------
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    user_state[user_id] = 0
-    await send_question(update, context, user_id)
+    await update.message.reply_text(
+        "Hello! I'm your JAMB quiz bot.\nSend /quiz to get a question."
+    )
 
-# Send question
-async def send_question(update: Update, context: ContextTypes.DEFAULT_TYPE, user_id):
-    index = user_state.get(user_id, 0)
-    
-    if index >= len(question_bank):
-        await context.bot.send_message(chat_id=user_id, text="🎉 You've finished all questions!")
-        return
+async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    q = random.choice(questions)
+    user_last_question[update.effective_chat.id] = q
+    await update.message.reply_text(f"Q: {q['question']}\n\nSend /answer to see the answer.")
 
-    q = question_bank[index]
-    options = q["options"]
-    keyboard = [
-        [InlineKeyboardButton(opt, callback_data=opt)] for opt in options
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    # If this is a callback query, edit the message
-    if update.callback_query:
-        await update.callback_query.message.edit_text(q["question"], reply_markup=reply_markup)
+async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    last_q = user_last_question.get(update.effective_chat.id)
+    if not last_q:
+        await update.message.reply_text("You haven't asked a question yet. Send /quiz first.")
     else:
-        await context.bot.send_message(chat_id=user_id, text=q["question"], reply_markup=reply_markup)
+        await update.message.reply_text(f"A: {last_q['answer']}")
 
-# Handle answer selection
-async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    user_id = query.from_user.id
-    await query.answer()
-    
-    index = user_state.get(user_id, 0)
-    correct_answer = question_bank[index]["answer"]
+async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Use /quiz to get a question or /answer to see the answer.")
 
-    if query.data == correct_answer:
-        await query.answer("✅ Correct!")
-    else:
-        await query.answer(f"❌ Wrong! Correct answer: {correct_answer}")
+# ----------------------------
+# BUILD APP
+# ----------------------------
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("quiz", quiz))
+app.add_handler(CommandHandler("answer", answer))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, unknown))
 
-    # Move to next question
-    user_state[user_id] = index + 1
-    await send_question(update, context, user_id)
+# ----------------------------
+# RUN WEBHOOK (RENDER)
+# ----------------------------
+PORT = int(os.environ.get("PORT", 5000))
+URL = f"https://jamb-bot.onrender.com/{TOKEN}"  # Your Render service URL
 
-# Main function
-if __name__ == "__main__":
-    TOKEN = "8432955575:AAE8o88yd9ndR2aCgwezWz_Vy9iJkZWtW9E"  # replace with your bot token
-
-    app = ApplicationBuilder().token(TOKEN).build()
-
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button))
-
-    print("Bot is running...")
-    app.run_polling()
+app.run_webhook(
+    listen="0.0.0.0",
+    port=PORT,
+    url_path=TOKEN,
+    webhook_url=URL
+)
