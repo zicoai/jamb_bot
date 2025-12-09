@@ -91,16 +91,26 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text(text, reply_markup=keyboard, parse_mode='HTML')
 
 def main():
-    init_db()
-    app = Application.builder().token("8432955575:AAE8o88yd9ndR2aCgwezWz_Vy9iJkZWtW9E").build()
+    from telegram import Bot
 
+    init_db()
+
+    # Your bot token
+    bot_token = "8432955575:AAE8o88yd9ndR2aCgwezWz_Vy9iJkZWtW9E"
+    bot = Bot(bot_token)
+    bot.delete_webhook()  # Remove any active webhook
+
+    # Build the application
+    app = Application.builder().token(bot_token).build()
+
+    # Handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("quiz", quiz))
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    print("Bot is running...")
+    print("JAMB CBT Bot is starting... 🚀")
     app.run_polling()
 
+# Correct __main__ check
 if __name__ == "__main__":
-    print("JAMB CBT Bot is starting... 🚀")
     main()
