@@ -101,5 +101,12 @@ def main():
     print("Bot is running...")
     app.run_polling()
 
-if name == 'main':
-    main()
+if __name__ == "__main__":
+    print("JAMB CBT Bot is starting... Hold tight!")
+    try:
+        bot.infinity_polling(timeout=10, none_stop=True)
+    except Exception as e:
+        print(f"Error: {e}")
+        import time, os
+        time.sleep(10)
+        os._exit(1)
