@@ -1,82 +1,92 @@
-"answer": "Organization of Petroleum Exporting Countries",
-    "explanation": "OPEC coordinates petroleum policies of its member countries."
-  },
-  {
-    "question": "The Nigerian flag colours are?",
-    "options": ["Red-white-blue", "Green-white-green", "Blue-yellow-red", "Black-red-gold"],
-    "answer": "Green-white-green",
-    "explanation": "Green represents agriculture, white represents unity and peace."
-  },
-  {
-    "question": "Tides are mainly caused by?",
-    "options": ["Wind", "Sun’s gravity", "Moon’s gravity", "Earth’s rotation"],
-    "answer": "Moon’s gravity",
-    "explanation": "Moon’s gravitational pull creates tidal bulges."
-  },
-  {
-    "question": "The smallest bone in the human body is the?",
-    "options": ["Stapes", "Femur", "Radius", "Tibia"],
-    "answer": "Stapes",
-    "explanation": "The stapes (in the ear) is less than 3 mm long."
-  },
-  {
-    "question": "Pythagoras theorem is used in?",
-    "options": ["Equilateral triangles", "Right-angled triangles", "Isosceles triangles", "All triangles"],
-    "answer": "Right-angled triangles",
-    "explanation": "a² + b² = c² where c is the hypotenuse."
-  },
-  {
-    "question": "Nigeria’s main export is?",
-    "options": ["Cocoa", "Gold", "Crude oil", "Palm oil"],
-    "answer": "Crude oil",
-    "explanation": "Petroleum accounts for over 90% of Nigeria’s export earnings."
-  },
-  {
-    "question": "The current Nigerian national anthem is?",
-    "options": ["Arise O Compatriots", "Nigeria We Hail Thee", "Stand Up for Nigeria", "Sweet Mother"],
-    "answer": "Nigeria We Hail Thee",
-    "explanation": "Re-adopted in 2024, originally used 1960–1978."
-  },
-  {
-    "question": "The number of local government areas in Nigeria is?",
-    "options": ["774", "680", "550", "880"],
-    "answer": "774",
-    "explanation": "Nigeria has 774 LGAs as defined in the 1999 constitution."
-  },
-  {
-    "question": "The current Senate President of Nigeria (2025) is?",
-    "options": ["Ahmed Lawan", "Godswill Akpabio", "Bukola Saraki", "David Mark"],
-    "answer": "Godswill Akpabio",
-    "explanation": "Senator Godswill Akpabio is the 10th Senate President."
-  },
-  {
-    "question": "The brightest object in the night sky after the Moon is?",
-    "options": ["Sirius", "Venus", "Jupiter", "Mars"],
-    "answer": "Venus",
-    "explanation": "Venus is often called the evening or morning star."
-  },
-  {
-    "question": "The chemical symbol for gold is?",
-    "options": ["Ag", "Au", "Fe", "Pb"],
-    "answer": "Au",
-    "explanation": "Au comes from the Latin word aurum."
-  },
-  {
-    "question": "The current Vice President of Nigeria is?",
-    "options": ["Yemi Osinbajo", "Kashim Shettima", "Atiku Abubakar", "Goodluck Jonathan"],
-    "answer": "Kashim Shettima",
-    "explanation": "Kashim Shettima has been VP since May 2023."
-  },
-  {
-    "question": "The most widely spoken language in the world is?",
-    "options": ["English", "Mandarin Chinese", "Spanish", "Hindi"],
-    "answer": "Mandarin Chinese",
-    "explanation": "Over 1.1 billion native speakers."
-  },
-  {
-    "question": "The human body has how many bones at birth?",
-    "options": ["206", "250", "300", "350"],
-    "answer": "300",
-    "explanation": "Many fuse together as we grow, leaving 206 in adults."
-  }
-]
+{
+  "Use of English": [
+    {
+      "question": "Choose the option nearest in meaning to the underlined word: The man’s story gave us an inkling of what he had passed through.",
+      "options": ["A. a possible idea", "B. a taste", "C. a summary", "D. an outline"],
+      "answer": "A",
+      "explanation": "An 'inkling' means a slight knowledge or suspicion; a hint."
+    },
+    {
+      "question": "Choose the word opposite in meaning to the underlined word: The testimony of the witness was vague.",
+      "options": ["A. clear", "B. real", "C. confusing", "D. suspicious"],
+      "answer": "A",
+      "explanation": "Vague means unclear; the opposite is clear."
+    }
+  ],
+  "Mathematics": [
+    {
+      "question": "If log₁₀(3x + 4) = 2, find x.",
+      "options": ["A. 10", "B. 32", "C. 96", "D. 100"],
+      "answer": "B",
+      "explanation": "log₁₀(3x + 4) = 2 ⇒ 3x + 4 = 10² = 100 ⇒ 3x = 96 ⇒ x = 32"
+    },
+    {
+      "question": "The sum of the first 20 terms of the arithmetic progression 5, 9, 13, ... is",
+      "options": ["A. 820", "B. 860", "C. 880", "D. 900"],
+      "answer": "B",
+      "explanation": "a = 5, d = 4, n = 20 → S₂₀ = n/2 [2a + (n-1)d] = 10[10 + 76] = 860"
+    }
+  ],
+  "Biology": [
+    {
+      "question": "Which of the following is the lowest level of organization in living organisms?",
+      "options": ["A. Tissue", "B. Cell", "C. Organ", "D. System"],
+      "answer": "B",
+      "explanation": "The cell is the basic structural and functional unit of life."
+    },
+    {
+      "question": "The process whereby plants lose water to the atmosphere through their leaves is called",
+      "options": ["A. Transpiration", "B. Translocation", "C. Osmosis", "D. Diffusion"],
+      "answer": "A",
+      "explanation": "Transpiration is the evaporation of water from plant leaves."
+    }
+  ],
+  "Physics": [
+    {
+      "question": "A body of mass 2 kg moving with velocity 3 m/s collides with another body of mass 5 kg at rest. If they move together after collision, their common velocity is",
+      "options": ["A. 0.86 m/s", "B. 6 m/s", "C. 15 m/s", "D. 1.5 m/s"],
+      "answer": "A",
+      "explanation": "Conservation of momentum: m₁u₁ + m₂u₂ = (m₁+m₂)v → 2×3 + 5×0 = 7v → v = 6/7 ≈ 0.86 m/s"
+    }
+  ],
+  "Chemistry": [
+    {
+      "question": "The IUPAC name for CH₃CH₂CH(CH₃)CH₂CH₃ is",
+      "options": ["A. 2-methylpentane", "B. 3-methylpentane", "C. 2-ethylbutane", "D. 4-methylpentane"],
+      "answer": "B",
+      "explanation": "Longest chain is 5 carbons, methyl group on carbon 3 → 3-methylpentane"
+    }
+  ],
+  "Government": [
+    {
+      "question": "The principle of separation of powers was made popular by",
+      "options": ["A. Baron de Montesquieu", "B. Thomas Hobbes", "C. John Locke", "D. Niccolo Machiavelli"],
+      "answer": "A",
+      "explanation": "Montesquieu advocated for the division of government into legislative, executive, and judicial branches."
+    }
+  ],
+  "Economics": [
+    {
+      "question": "When price is set above equilibrium price, the result is",
+      "options": ["A. Excess supply", "B. Excess demand", "C. Shortage", "D. Equilibrium quantity"],
+      "answer": "A",
+      "explanation": "Price above equilibrium leads to surplus (excess supply)."
+    }
+  ],
+  "Literature": [
+    {
+      "question": "A dramatic performance with only bodily movements and no speech is",
+      "options": ["A. Opera", "B. Pantomime", "C. Ballet", "D. Masque"],
+      "answer": "B",
+      "explanation": "Pantomime uses gestures and movements without spoken words."
+    }
+  ],
+  "CRS": [
+    {
+      "question": "Jesus wept over Jerusalem because",
+      "options": ["A. He was disappointed with the people", "B. He knew He would die there", "C. the people did not believe in Him", "D. He foresaw the coming destruction of the city"],
+      "answer": "D",
+      "explanation": "Luke 19:41-44 – Jesus wept because Jerusalem would be destroyed for not recognizing the time of God’s coming."
+    }
+  ]
+}
