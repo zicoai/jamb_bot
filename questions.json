@@ -1,52 +1,38 @@
-[
-    {
-        "question": "What is the capital of Nigeria?",
-        "options": ["Abuja", "Lagos", "Kano", "Port Harcourt"],
-        "answer": "Abuja"
-    },
-    {
-        "question": "Which gas contributes most to global warming?",
-        "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-        "answer": "Carbon Dioxide"
-    },
-    {
-        "question": "Water boils at what temperature at sea level?",
-        "options": ["90°C", "100°C", "110°C", "120°C"],
-        "answer": "100°C"
-    },
-    {
-        "question": "Who wrote 'Things Fall Apart'?",
-        "options": ["Chinua Achebe", "Wole Soyinka", "Ngugi wa Thiong'o", "Buchi Emecheta"],
-        "answer": "Chinua Achebe"
-    },
-    {
-        "question": "What is the chemical symbol for Gold?",
-        "options": ["Au", "Ag", "Gd", "Go"],
-        "answer": "Au"
-    },
-    {
-        "question": "Which organ pumps blood through the body?",
-        "options": ["Lungs", "Kidneys", "Heart", "Liver"],
-        "answer": "Heart"
-    },
-    {
-        "question": "Which planet is known as the Red Planet?",
-        "options": ["Mars", "Venus", "Jupiter", "Saturn"],
-        "answer": "Mars"
-    },
-    {
-        "question": "The process of plants making food using sunlight is called?",
-        "options": ["Respiration", "Photosynthesis", "Transpiration", "Germination"],
-        "answer": "Photosynthesis"
-    },
-    {
-        "question": "Who is the current Secretary-General of the United Nations?",
-        "options": ["Ban Ki-moon", "Antonio Guterres", "Kofi Annan", "Boutros Boutros-Ghali"],
-        "answer": "Antonio Guterres"
-    },
-    {
-        "question": "Which of these is NOT a primary color?",
-        "options": ["Red", "Blue", "Green", "Yellow"],
-        "answer": "Green"
-    }
+},
+  {
+    "question": "The Nigerian flag has how many colors?",
+    "options": ["2", "3", "4", "1"],
+    "answer": "3",
+    "explanation": "Green-white-green: green for agriculture, white for unity."
+  },
+  {
+    "question": "What causes tides on Earth?",
+    "options": ["Wind", "Sun", "Moon's gravity", "Earth's rotation"],
+    "answer": "Moon's gravity",
+    "explanation": "Gravitational pull of the Moon (and Sun) on oceans."
+  },
+  {
+    "question": "The smallest bone in the human body is in the?",
+    "options": ["Leg", "Arm", "Ear", "Finger"],
+    "answer": "Ear",
+    "explanation": "The stapes in the middle ear transmits sound vibrations."
+  },
+  {
+    "question": "The capital of Canada is?",
+    "options": ["Toronto", "Vancouver", "Ottawa", "Montreal"],
+    "answer": "Ottawa",
+    "explanation": "Ottawa is the political capital of Canada."
+  },
+  {
+    "question": "In math, Pythagoras theorem applies to?",
+    "options": ["Equilateral triangle", "Right-angled triangle", "Isosceles triangle", "Scalene triangle"],
+    "answer": "Right-angled triangle",
+    "explanation": "a² + b² = c² for the hypotenuse."
+  },
+  {
+    "question": "The main export of Nigeria is?",
+    "options": ["Gold", "Cocoa", "Crude oil", "Cotton"],
+    "answer": "Crude oil",
+    "explanation": "Nigeria is Africa's largest oil producer."
+  }
 ]
