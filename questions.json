@@ -1,38 +1,82 @@
-},
-  {
-    "question": "The Nigerian flag has how many colors?",
-    "options": ["2", "3", "4", "1"],
-    "answer": "3",
-    "explanation": "Green-white-green: green for agriculture, white for unity."
+"answer": "Organization of Petroleum Exporting Countries",
+    "explanation": "OPEC coordinates petroleum policies of its member countries."
   },
   {
-    "question": "What causes tides on Earth?",
-    "options": ["Wind", "Sun", "Moon's gravity", "Earth's rotation"],
-    "answer": "Moon's gravity",
-    "explanation": "Gravitational pull of the Moon (and Sun) on oceans."
+    "question": "The Nigerian flag colours are?",
+    "options": ["Red-white-blue", "Green-white-green", "Blue-yellow-red", "Black-red-gold"],
+    "answer": "Green-white-green",
+    "explanation": "Green represents agriculture, white represents unity and peace."
   },
   {
-    "question": "The smallest bone in the human body is in the?",
-    "options": ["Leg", "Arm", "Ear", "Finger"],
-    "answer": "Ear",
-    "explanation": "The stapes in the middle ear transmits sound vibrations."
+    "question": "Tides are mainly caused by?",
+    "options": ["Wind", "Sun’s gravity", "Moon’s gravity", "Earth’s rotation"],
+    "answer": "Moon’s gravity",
+    "explanation": "Moon’s gravitational pull creates tidal bulges."
   },
   {
-    "question": "The capital of Canada is?",
-    "options": ["Toronto", "Vancouver", "Ottawa", "Montreal"],
-    "answer": "Ottawa",
-    "explanation": "Ottawa is the political capital of Canada."
+    "question": "The smallest bone in the human body is the?",
+    "options": ["Stapes", "Femur", "Radius", "Tibia"],
+    "answer": "Stapes",
+    "explanation": "The stapes (in the ear) is less than 3 mm long."
   },
   {
-    "question": "In math, Pythagoras theorem applies to?",
-    "options": ["Equilateral triangle", "Right-angled triangle", "Isosceles triangle", "Scalene triangle"],
-    "answer": "Right-angled triangle",
-    "explanation": "a² + b² = c² for the hypotenuse."
+    "question": "Pythagoras theorem is used in?",
+    "options": ["Equilateral triangles", "Right-angled triangles", "Isosceles triangles", "All triangles"],
+    "answer": "Right-angled triangles",
+    "explanation": "a² + b² = c² where c is the hypotenuse."
   },
   {
-    "question": "The main export of Nigeria is?",
-    "options": ["Gold", "Cocoa", "Crude oil", "Cotton"],
+    "question": "Nigeria’s main export is?",
+    "options": ["Cocoa", "Gold", "Crude oil", "Palm oil"],
     "answer": "Crude oil",
-    "explanation": "Nigeria is Africa's largest oil producer."
+    "explanation": "Petroleum accounts for over 90% of Nigeria’s export earnings."
+  },
+  {
+    "question": "The current Nigerian national anthem is?",
+    "options": ["Arise O Compatriots", "Nigeria We Hail Thee", "Stand Up for Nigeria", "Sweet Mother"],
+    "answer": "Nigeria We Hail Thee",
+    "explanation": "Re-adopted in 2024, originally used 1960–1978."
+  },
+  {
+    "question": "The number of local government areas in Nigeria is?",
+    "options": ["774", "680", "550", "880"],
+    "answer": "774",
+    "explanation": "Nigeria has 774 LGAs as defined in the 1999 constitution."
+  },
+  {
+    "question": "The current Senate President of Nigeria (2025) is?",
+    "options": ["Ahmed Lawan", "Godswill Akpabio", "Bukola Saraki", "David Mark"],
+    "answer": "Godswill Akpabio",
+    "explanation": "Senator Godswill Akpabio is the 10th Senate President."
+  },
+  {
+    "question": "The brightest object in the night sky after the Moon is?",
+    "options": ["Sirius", "Venus", "Jupiter", "Mars"],
+    "answer": "Venus",
+    "explanation": "Venus is often called the evening or morning star."
+  },
+  {
+    "question": "The chemical symbol for gold is?",
+    "options": ["Ag", "Au", "Fe", "Pb"],
+    "answer": "Au",
+    "explanation": "Au comes from the Latin word aurum."
+  },
+  {
+    "question": "The current Vice President of Nigeria is?",
+    "options": ["Yemi Osinbajo", "Kashim Shettima", "Atiku Abubakar", "Goodluck Jonathan"],
+    "answer": "Kashim Shettima",
+    "explanation": "Kashim Shettima has been VP since May 2023."
+  },
+  {
+    "question": "The most widely spoken language in the world is?",
+    "options": ["English", "Mandarin Chinese", "Spanish", "Hindi"],
+    "answer": "Mandarin Chinese",
+    "explanation": "Over 1.1 billion native speakers."
+  },
+  {
+    "question": "The human body has how many bones at birth?",
+    "options": ["206", "250", "300", "350"],
+    "answer": "300",
+    "explanation": "Many fuse together as we grow, leaving 206 in adults."
   }
 ]
