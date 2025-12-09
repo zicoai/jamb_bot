@@ -1,7 +1,8 @@
+import os
 import logging
 import json
 import random
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, Bot
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from database import init_db, get_progress, update_progress
 
@@ -10,7 +11,14 @@ with open("questions.json", encoding="utf-8") as f:
     QUESTIONS = json.load(f)
     QUESTION_IDS = list(range(len(QUESTIONS)))
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+
+# --------------------
+# Bot Handlers
+# --------------------
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -25,7 +33,9 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     available = [i for i in QUESTION_IDS if str(i) not in progress["asked"]]
     if not available:
-        await update.message.reply_text("You've finished all questions! Respect 🔥\nStart again with /quiz")
+        await update.message.reply_text(
+            "You've finished all questions! Respect 🔥\nStart again with /quiz"
+        )
         progress = {"asked": set(), "correct": 0, "total": 0}
         update_progress(user_id, progress["asked"], 0, 0)
         available = QUESTION_IDS[:]
@@ -33,11 +43,8 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     q_id = random.choice(available)
     question = QUESTIONS[q_id]
 
-    buttons = []
-    for opt in question["options"]:
-        buttons.append([InlineKeyboardButton(opt, callback_data=f"{q_id}|{opt}")])
+    buttons = [[InlineKeyboardButton(opt, callback_data=f"{q_id}|{opt}")] for opt in question["options"]]
     buttons.append([InlineKeyboardButton("Next Question ➡️", callback_data=f"NEXT|{q_id}")])
-
     keyboard = InlineKeyboardMarkup(buttons)
     
     await update.message.reply_text(
@@ -45,7 +52,6 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=keyboard
     )
     
-    # Update asked list immediately
     progress["asked"].add(str(q_id))
     progress["total"] += 1
     update_progress(user_id, progress["asked"], progress["correct"], progress["total"])
@@ -58,7 +64,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = query.from_user.id
 
     if data.startswith("NEXT|"):
-        # Just send new question
         await query.edit_message_reply_markup(reply_markup=None)
         await query.message.reply_text("Loading next question...")
         await quiz(query, context)
@@ -75,42 +80,47 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         progress["correct"] += 1
         update_progress(user_id, progress["asked"], progress["correct"], progress["total"])
 
-    # Feedback
     emoji = "✅" if is_correct else "❌"
-    text = f"{emoji} <b>{chosen}</b>\n\n"
-    text += f"Correct Answer: <b>{correct_answer}</b>\n\n"
-    text += f"<i>{question['explanation']}</i>\n\n"
-    text += f"Score: {progress['correct']}/{progress['total']} "
+    text = (
+        f"{emoji} <b>{chosen}</b>\n\n"
+        f"Correct Answer: <b>{correct_answer}</b>\n\n"
+        f"<i>{question['explanation']}</i>\n\n"
+        f"Score: {progress['correct']}/{progress['total']} "
+    )
 
     if progress['total'] % 50 == 0:
         percent = (progress['correct']/progress['total'])*100
         text += f"({percent:.1f}%) 🔥\n\n<i>Keep going! Send /quiz for the next one</i>"
 
     keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Next Question ➡️", callback_data=f"NEXT|{q_id}")]])
-    
     await query.edit_message_text(text, reply_markup=keyboard, parse_mode='HTML')
 
-def main():
-    from telegram import Bot
+# --------------------
+# Main Bot Function
+# --------------------
 
+def main():
     init_db()
 
-    # Your bot token
-    bot_token = "8432955575:AAE8o88yd9ndR2aCgwezWz_Vy9iJkZWtW9E"
+    bot_token = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
     bot = Bot(bot_token)
-    bot.delete_webhook()  # Remove any active webhook
+    bot.delete_webhook()  # Remove any existing webhook
 
-    # Build the application
     app = Application.builder().token(bot_token).build()
-
-    # Handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("quiz", quiz))
     app.add_handler(CallbackQueryHandler(button_handler))
 
     print("JAMB CBT Bot is starting... 🚀")
-    app.run_polling()
 
-# Correct __main__ check
+    # For Render, you can either use polling (less reliable) or webhook (recommended)
+    # --------------------------
+    # Option 1: Polling (local dev)
+    app.run_polling(timeout=60, reconnect=True)
+    # --------------------------
+    # Option 2: Webhook (recommended on Render)
+    # PORT = int(os.environ.get("PORT", 5000))
+    # app.run_webhook(listen="0.0.0.0", port=PORT, webhook_url=f"https://<YOUR-RENDER-APP>.onrender.com/{bot_token}")
+
 if __name__ == "__main__":
     main()
