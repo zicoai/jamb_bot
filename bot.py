@@ -2,6 +2,7 @@ import os
 import json
 import random
 import logging
+import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from database import init_db, get_progress, update_progress
@@ -15,7 +16,7 @@ with open("questions.json", encoding="utf-8") as f:
     QUESTIONS = json.load(f)
     QUESTION_IDS = list(range(len(QUESTIONS)))
 
-# Fixed for Python 3.13 (use levelname, not level)
+# Python 3.13 safe logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
@@ -67,16 +68,14 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("NEXT|"):
         await query.edit_message_reply_markup(reply_markup=None)
-        await quiz(query, context)  # trigger next question
+        await quiz(query, context)
         return
 
-    q_id_str, chosen = data.split("|", 1)
-    q_id = int(q_id_str)
+    q_id = int(data.split("|")[0])
+    chosen = data.split("|", 1)[1]
     q = QUESTIONS[q_id]
-    correct_answer = q["answer"]
-
     progress = get_progress(user_id)
-    is_correct = chosen == correct_answer
+    is_correct = chosen == q["answer"]
 
     if is_correct:
         progress["correct"] += 1
@@ -84,10 +83,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     emoji = "Correct" if is_correct else "Wrong"
     text = f"{emoji} <b>{chosen}</b>\n\n"
-    text += f"Correct Answer: <b>{correct_answer}</b>\n\n"
+    text += f"Correct Answer: <b>{q['answer']}</b>\n\n"
     text += f"<i>{q['explanation']}</i>\n\n"
     text += f"Score: {progress['correct']}/{progress['total']}"
-
     if progress["total"] % 50 == 0:
         percent = (progress["correct"] / progress["total"]) * 100
         text += f" ({percent:.1f}%) Keep going!"
@@ -98,24 +96,23 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await query.edit_message_text(text, reply_markup=keyboard, parse_mode="HTML")
 
-# ========================= MAIN =========================
-def main():
+# ========================= START THE BOT =========================
+async def main():
     logger.info("Initializing database...")
     init_db()
 
-    logger.info("Building bot application...")
+    logger.info("Building bot...")
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("quiz", quiz))
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    logger.info("Removing any old webhook...")
-    import asyncio
-    asyncio.run(app.bot.delete_webhook(drop_pending_updates=True))
+    logger.info("Deleting old webhook...")
+    await app.bot.delete_webhook(drop_pending_updates=True)
 
-    logger.info("Bot is now LIVE – starting polling...")
-    app.run_polling(drop_pending_updates=True)  # blocks forever, keeps bot alive
+    logger.info("BOT IS LIVE — starting polling...")
+    await app.run_polling(drop_pending_updates=True)  # this works perfectly in async main()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
