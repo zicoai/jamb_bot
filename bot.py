@@ -19,7 +19,7 @@ with open("questions.json", encoding="utf-8") as f:
 # Python 3.13 safe logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
+    level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f"Question {progress['total'] + 1}\n\n{q['question']}",
-        reply_markup=keyboard
+        reply_markup=keyboard,
     )
 
     progress["asked"].add(str(q_id))
@@ -62,7 +62,6 @@ async def quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
     user_id = query.from_user.id
     data = query.data
 
@@ -71,7 +70,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await quiz(query, context)
         return
 
-    q_id = int(data.split("|")[0])
+    q_id = int(data.split("|", 1)[0])
     chosen = data.split("|", 1)[1]
     q = QUESTIONS[q_id]
     progress = get_progress(user_id)
@@ -82,22 +81,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         update_progress(user_id, progress["asked"], progress["correct"], progress["total"])
 
     emoji = "Correct" if is_correct else "Wrong"
-    text = f"{emoji} <b>{chosen}</b>\n\n"
-    text += f"Correct Answer: <b>{q['answer']}</b>\n\n"
-    text += f"<i>{q['explanation']}</i>\n\n"
-    text += f"Score: {progress['correct']}/{progress['total']}"
+    text = f"{emoji} <b>{chosen}</b>\n\nCorrect Answer: <b>{q['answer']}</b>\n\n<i>{q['explanation']}</i>\n\nScore: {progress['correct']}/{progress['total']}"
     if progress["total"] % 50 == 0:
-        percent = (progress["correct"] / progress["total"]) * 100
+        percent = (progress['correct'] / progress['total']) * 100
         text += f" ({percent:.1f}%) Keep going!"
 
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Next Question", callback_data=f"NEXT|{q_id}")]
-    ])
-
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Next Question", callback_data=f"NEXT|{q_id}")]])
     await query.edit_message_text(text, reply_markup=keyboard, parse_mode="HTML")
 
-# ========================= START THE BOT =========================
-async def main():
+# ========================= MAIN =========================
+def main():
     logger.info("Initializing database...")
     init_db()
 
@@ -109,10 +102,17 @@ async def main():
     app.add_handler(CallbackQueryHandler(button_handler))
 
     logger.info("Deleting old webhook...")
-    await app.bot.delete_webhook(drop_pending_updates=True)
+    asyncio.run(app.bot.delete_webhook(drop_pending_updates=True))
 
-    logger.info("BOT IS LIVE — starting polling...")
-    await app.run_polling(drop_pending_updates=True)  # this works perfectly in async main()
+    logger.info("BOT IS LIVE AND STABLE – starting polling...")
+    
+    # THIS IS THE MAGIC LINE THAT MAKES IT WORK ON RENDER + Python 3.13
+    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
+    
+    app.run_polling(
+        drop_pending_updates=True,
+        allowed_updates=Update.ALL_TYPES
+    )
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
